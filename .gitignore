@@ -39,3 +39,40 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# =====================
+# Python / Backend
+# =====================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+
+# Virtual environments
+venv/
+.env/
+.env.local/
+.env.backend/
+
+# FastAPI / Uvicorn
+*.pid
+
+# =====================
+# ML / HuggingFace
+# =====================
+backend/model/pytorch_model.bin
+backend/model/*.bin
+backend/model/*.pt
+backend/model/*.safetensors
+
+# HuggingFace cache
+.cache/
+.huggingface/
+hf_cache/
+
+# =====================
+# OS / Editor
+# =====================
+.vscode/
+.idea/
