@@ -6,10 +6,16 @@ export default function Home() {
   const [text, setText] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const MIN_LENGTH = 40;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!text.trim()) return;
+    if (text.trim().length < MIN_LENGTH) {
+      setResult({
+        error: `Please enter at least ${MIN_LENGTH} characters.`
+      });
+      return;
+    }
 
     setLoading(true);
     setResult(null);
@@ -33,7 +39,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-[80vh] flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -48,10 +54,14 @@ export default function Home() {
               className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 resize-none"
               rows={8}
             />
+            <p className={`text-sm mt-1 ${text.length < MIN_LENGTH ? "text-red-500" : "hidden"
+              }`}>
+              {text.length}/{MIN_LENGTH} characters minimum
+            </p>
           </div>
           <button
             type="submit"
-            disabled={loading || !text.trim()}
+            disabled={loading || !text.trim() || text.length < 40}
             className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg transition-colors"
           >
             {loading ? "Analyzing..." : "Analyze Text"}
@@ -70,6 +80,9 @@ export default function Home() {
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-500">
                   Confidence: {(result.confidence * 100).toFixed(2)}%
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-500">
+                  Chunks analyzed: {result.chunks_analyzed}
                 </p>
               </div>
             )}
