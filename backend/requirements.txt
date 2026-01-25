@@ -2,3 +2,6 @@ fastapi
 uvicorn
 torch
 transformers
+language-tool-python
+spacy
+numpy
