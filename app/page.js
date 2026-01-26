@@ -50,7 +50,7 @@ export default function Home() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/analyze`,
+        `http://localhost:8000/analyze`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -73,7 +73,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center p-4">
+    <div className="min-h-[80vh] flex items-center justify-center p-4 text-black">
       <div className="w-full max-w-2xl">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -100,7 +100,7 @@ export default function Home() {
           <button
             type="submit"
             disabled={loading || text.trim().length < MIN_LENGTH}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white py-3 rounded-lg"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400  py-3 rounded-lg"
           >
             {loading ? "Analyzing..." : "Analyze Text"}
           </button>
@@ -110,7 +110,7 @@ export default function Home() {
             type="button"
             onClick={handleAnalyze}
             disabled={analysisLoading || !text.trim()}
-            className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white py-3 rounded-lg"
+            className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400  py-3 rounded-lg"
           >
             {analysisLoading
               ? "Analyzing Writing..."
@@ -125,7 +125,7 @@ export default function Home() {
               <p className="text-red-600">{result.error}</p>
             ) : (
               <div className="space-y-2">
-                <p className="text-sm text-gray-500">AI Detection Result</p>
+                <p className="text-sm ">AI Detection Result</p>
                 <p
                   className={`text-2xl font-bold ${
                     result.label === "AI"
@@ -157,7 +157,7 @@ export default function Home() {
                   Grammar & Style Analysis
                 </h2>
 
-                <div>
+                <div className="text-black">
                   <h3 className="font-medium">Grammar Issues</h3>
                   {analysisResult.grammar_errors?.length ? (
                     <ul className="list-disc pl-5 text-sm space-y-2">
@@ -166,7 +166,7 @@ export default function Home() {
                         <div className="font-medium">{e.message}</div>
 
                         {e.suggestions?.length > 0 && (
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs ">
                             Suggestions: {e.suggestions.join(", ")}
                           </div>
                         )}
