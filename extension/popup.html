@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Text Insight AI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 360px;
+      margin: 0;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 100%;
+      resize: none;
+      padding: 8px;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      color: white;
+    }
+
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    #aiDetectBtn {
+      background: #2563eb;
+    }
+
+    #grammarBtn {
+      background: #7c3aed;
+    }
+
+    .error {
+      color: #dc2626;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .result-box {
+      margin-top: 12px;
+      padding: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      background: #f9fafb;
+      font-size: 13px;
+    }
+
+    h2, h3 {
+      margin: 6px 0;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin: 6px 0;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <label for="textInput">Enter text to analyze</label>
+
+  <textarea
+    id="textInput"
+    rows="6"
+    placeholder="Paste or select text from any website..."
+  ></textarea>
+
+  <p id="charCount" class="error"></p>
+
+  <button id="aiDetectBtn">Analyze Text</button>
+  <button id="grammarBtn">Analyze Grammar & Style</button>
+
+  <div id="result"></div>
+  <div id="analysisResult"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
