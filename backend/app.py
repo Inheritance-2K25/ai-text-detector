@@ -5,7 +5,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from schemas import TextRequest
 
 # AI inference
-from inference import predict_long_text
+# from inference import predict_long_text  #Old Model
+from hybrid.hybrid_predictor import predict_long_text
+
 
 # Grammar + style
 from grammar import check_grammar
