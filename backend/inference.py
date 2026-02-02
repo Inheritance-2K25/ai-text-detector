@@ -55,5 +55,3 @@ def predict_long_text(text):
         "confidence": avg_ai_prob if final_label == "AI" else 1 - avg_ai_prob,
         "chunks_analyzed": len(chunks)
     }
-
-

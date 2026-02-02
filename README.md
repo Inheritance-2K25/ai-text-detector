@@ -99,8 +99,8 @@ http://localhost:3000
 
 ---
 
-🧩 Run Chrome Extension (Local)
-9️⃣ Go to extensions directory
+## 🧩 Run Chrome Extension (Local)
+### 9️⃣ Go to extensions directory
 
 From the project root:
 
@@ -109,17 +109,17 @@ cd extensions
 
 Ensure this folder contains a manifest.json file.
 
-🔟 Open Chrome Extensions page
+### 🔟 Open Chrome Extensions page
 
 Open Google Chrome and navigate to:
 
 chrome://extensions
 
-1️⃣1️⃣ Enable Developer Mode
+### 1️⃣1️⃣ Enable Developer Mode
 
 Turn Developer mode ON (top-right corner).
 
-1️⃣2️⃣ Load the extension
+### 1️⃣2️⃣ Load the extension
 
 Click Load unpacked
 
@@ -129,7 +129,7 @@ Click Open
 
 ✅ The extension will be successfully loaded into Chrome.
 
-1️⃣3️⃣ Use the extension
+### 1️⃣3️⃣ Use the extension
 
 Click the 🧩 Extensions icon in the Chrome toolbar
 
@@ -137,8 +137,9 @@ Pin your extension
 
 Open any webpage and use the extension features
 
-🔄 Complete Run Summary
-Service	Command / Action	Port
-Backend	uvicorn app:app --reload	8000
-Frontend	npm run dev	3000
-Chrome Extension	Load Unpacked (extensions/)	—
+### 🔄 Complete Run Summary
+|  Service	        |  Command / Action           |	Port |
+| ----------------- | --------------------------- | ---- |
+|  Backend          |	uvicorn app:app --reload    |	8000 |
+|  Frontend         |	npm run dev	                | 3000 |
+|  Chrome Extension |	Load Unpacked (extensions/)	|  —   |
