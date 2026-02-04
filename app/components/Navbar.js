@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import logoImage from "./AItextdetectorLogo.jpeg";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -76,13 +78,20 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md transition-all shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo/Brand */}
-          <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
-              Text Analyzer
-            </h1>
-          </div>
+          <Link href="/" className="flex-shrink-0 flex items-center hover:opacity-80 transition-opacity group">
+            <div className="relative h-14 w-auto flex items-center justify-center">
+              <Image
+                src={logoImage}
+                alt="AI Text Detector Logo"
+                width={200}
+                height={56}
+                className="object-contain h-full w-auto"
+                priority
+              />
+            </div>
+          </Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center gap-8">
@@ -125,55 +134,6 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-4">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all active:scale-95"
-              aria-label="Toggle theme"
-            >
-              {mounted ? (
-                <span className="text-lg transition-transform duration-300">
-                  {dark ? "🌙" : "☀️"}
-                </span>
-              ) : (
-                <span className="w-6 h-6 bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
-              )}
-            </button>
-          </div>
-
-          {/* Desktop Theme Toggle */}
-          <div className="hidden md:flex items-center">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="
-                relative px-4 py-2 rounded-lg text-sm font-medium
-                bg-gray-100 dark:bg-gray-800
-                text-gray-700 dark:text-gray-200
-                hover:bg-gray-200 dark:hover:bg-gray-700
-                transition-all duration-300
-                flex items-center gap-2
-                group
-                active:scale-95
-              "
-              aria-label="Toggle theme"
-            >
-              {mounted ? (
-                <>
-                  <span className="text-lg transition-transform duration-500 group-hover:rotate-180">
-                    {dark ? "🌙" : "☀️"}
-                  </span>
-                  <span className="transition-opacity duration-300">
-                    {dark ? "Dark" : "Light"}
-                  </span>
-                </>
-              ) : (
-                <span className="w-16 h-5 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-              )}
-            </button>
-          </div>
         </div>
 
         {/* Mobile Navigation */}
