@@ -7,17 +7,22 @@ export default function Page() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [status, setStatus] = useState("");
 
   const MIN_LENGTH = 100;
 
   const runCheck = async () => {
 
+    if (text.length < MIN_LENGTH) {
+      alert(`Enter at least ${MIN_LENGTH} characters.`);
+      return;
+    }
+
     try {
 
       setLoading(true);
       setResult(null);
-
-      console.log("Sending request...");
+      setStatus("Analyzing text...");
 
       const response = await fetch("http://127.0.0.1:8000/plagiarism", {
         method: "POST",
@@ -27,17 +32,19 @@ export default function Page() {
         body: JSON.stringify({ text }),
       });
 
-      console.log("Response:", response);
-
       const data = await response.json();
 
-      console.log("DATA:", data);
-
-      setResult(data);
+      if (response.ok) {
+        setStatus("Check complete!");
+        setResult(data);
+      } else {
+        setStatus("Error: " + (data.detail || "Unknown error"));
+      }
 
     } catch (error) {
 
-      console.error("API Error:", error);
+      console.error(error);
+      setStatus("Failed to connect to backend.");
 
     } finally {
 
@@ -85,63 +92,64 @@ export default function Page() {
             {loading ? "Scanning..." : "Scan for Plagiarism"}
           </button>
 
+          {/* STATUS TEXT (like HTML version) */}
+          {status && (
+            <div className="mt-4 font-semibold text-gray-600">
+              {status}
+            </div>
+          )}
+
         </div>
 
-        {/* RESULT SECTION */}
-
-        {result && result.result && (
+        {/* RESULT AREA (same behavior as HTML example) */}
+        {result && (
 
           <div className="mt-8 bg-white rounded-2xl shadow-lg p-6">
 
             <h3 className="text-lg font-semibold">Results</h3>
 
-            {/* Score */}
-            <div
-              className={`mt-4 text-5xl font-bold ${
-                result.result.score > 40 ? "text-red-600" : "text-green-600"
-              }`}
-            >
-              {result.result.score}%
+            {/* SCORE */}
+            <div className="mt-4 text-5xl font-bold text-red-600">
+              {result.result?.score ?? 0}%
             </div>
 
             <p className="text-gray-500 mt-1">
               Plagiarism Detected
             </p>
 
-            {/* Sources */}
-            {result.sources
-              ?.filter((s) => s.score > 0)   
-              .length > 0 && (
+            {/* SOURCES LIST */}
+            <div className="mt-6">
 
-              <div className="mt-6">
+              {(result.sources?.length ?? 0) > 0 ? (
 
-                <h4 className="font-semibold mb-2">Sources</h4>
-
-                {result.sources
+                result.sources
                   .filter((s) => s.score > 0)
-                  .map((s, i) => (
+                  .map((src, i) => (
 
-                    <div key={i} className="border-b py-2">
+                    <div key={i} className="border-l-4 border-indigo-600 bg-gray-50 p-3 mb-3 text-sm">
 
+                      <strong>Match Score:</strong> {src.score}% <br />
+
+                      <strong>URL:</strong>{" "}
                       <a
-                        href={s.url}
+                        href={src.url}
                         target="_blank"
                         className="text-indigo-600 hover:underline"
                       >
-                        {s.title}
+                        {src.url}
                       </a>
-
-                      <p className="text-sm text-gray-500">
-                        Score: {s.score}%
-                      </p>
 
                     </div>
 
-                ))}
+                ))
 
-              </div>
+              ) : (
 
-            )}
+                <p>No matches found. This text is original!</p>
+
+              )}
+
+            </div>
 
           </div>
 
