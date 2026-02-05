@@ -77,6 +77,9 @@ export default function Home() {
       <div className="w-full max-w-2xl animate-fade">
         {/* Main Card */}
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur rounded-2xl shadow-xl p-8 border border-indigo-100 dark:border-gray-700 transition-all hover:shadow-2xl">
+          <h2 className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 text-center">
+            AI Text Detector
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Input */}
             <div>
