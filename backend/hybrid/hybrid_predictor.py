@@ -7,7 +7,7 @@ from .stylometry import extract_stylometric_features
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-MODEL_PATH = "./model"
+MODEL_PATH = "Yash9911/Ai-Text-Detector"
 HYBRID_MODEL_PATH = "./hybrid/hybrid_classifier.pkl"
 
 # Load models
