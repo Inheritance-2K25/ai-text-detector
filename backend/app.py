@@ -1,8 +1,5 @@
-import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
-load_dotenv()
 
 # Schemas
 from schemas import TextRequest
@@ -23,16 +20,14 @@ logging.basicConfig(level=logging.INFO)
 
 app = FastAPI(title="Text Analysis API")
 
-FRONTEND_URL = os.getenv("FRONTEND_URL", "*")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=["*"],  # Allows your Live Server (5500) to talk to Uvicorn (8000)
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"], # Explicitly allow OPTIONS
     allow_headers=["*"],
 )
-
 
 # -----------------------
 # Health check
@@ -101,8 +96,14 @@ async def analyze(request: TextRequest):
 
 
 import re  # MUST HAVE THIS
+import logging
+from pydantic import BaseModel
 import httpx
 import asyncio
+
+
+class TextRequest(BaseModel):
+    text: str
 
 # 1. Define helper functions FIRST
 def clean_text(text: str) -> str:
@@ -112,17 +113,11 @@ def clean_text(text: str) -> str:
 
 
 # --- Configuration for Winston AI ---
-WINSTON_API_KEY = os.getenv("WINSTON_API_KEY")
+WINSTON_API_KEY = "API_KEY_HERE"
 WINSTON_URL = "https://api.gowinston.ai/v2/plagiarism"
 
 @app.post("/plagiarism")
 async def check_plagiarism_endpoint(request: TextRequest):
-    #api error
-    if not WINSTON_API_KEY:
-        raise HTTPException(
-            status_code=500,
-            detail="Winston API key not configured"
-        )
     # 1. Clean the text (Reuse your existing clean_text function)
     text = clean_text(request.text.strip())
 
